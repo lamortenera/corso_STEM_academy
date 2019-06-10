@@ -1,1 +1,26 @@
-Pagina principale in costruzione
+<!DOCTYPE html>
+<html>
+<head>
+<title>Il meteo</title>
+</head>
+<body>
+<div style="background-color: green; padding: 10px; color: white">
+	<h1>Benvenuto nella pagina del meteo</h1>
+	Uno dei siti piu' autorevoli del web
+</div>
+<div style="display: flex; flex-direction: row">
+	<div style="background-color: lightyellow; padding: 10px">
+		<h3>Menu'</h3>
+		<ol>
+			<li><a href="{{url_for('index')}}">Home</a></li>
+			<li><a href="{{url_for('authors')}}">Autori</a></li>
+			<li><a href="http://www.alumniscuolagalileiana.it">Sito Alumni Scuola Galileiana</a></li>
+		</ol>
+	</div>
+	<div style="padding: 10px;">
+		<h3>Rilevazioni temperatura</h3>
+		Dati non presenti
+	</div>
+</div>
+</body>
+</html>

@@ -1,1 +1,48 @@
-Pagina autori in costruzione
+<!DOCTYPE html>
+<html>
+<head>
+<title>Il meteo</title>
+</head>
+<body>
+<div style="background-color: green; padding: 10px; color: white">
+	<h1>Benvenuto nella pagina del meteo</h1>
+	Uno dei siti piu' autorevoli del web
+</div>
+<div style="display: flex; flex-direction: row">
+	<div style="background-color: lightyellow; padding: 10px">
+		<h3>Menu'</h3>
+		<ol>
+			<li><a href="{{url_for('index')}}">Home</a></li>
+			<li><a href="{{url_for('authors')}}">Autori</a></li>
+			<li><a href="http://www.alumniscuolagalileiana.it">Sito Alumni Scuola Galileiana</a></li>
+		</ol>
+	</div>
+	<div style="padding: 10px;">
+		<h3>Autore</h3>
+		Questo sito e' stato sviluppato da Alessandro Mammana
+		<h3>Foto</h3>
+		Questa e' una foto dell'autore:<br>
+		<img height="128" src="{{url_for('static', filename='foto.png')}}"</img>
+		<h3>Contatti</h3>
+		<ul>
+		<li>
+			Manda un'email a 
+			<a href="mailto: foo.bar@gmail.com">foo.bar AT gmail.com</a>
+		</li>
+		<li>
+			Contattami nei <a href="http://www.facebook.com">social network</a>
+		</li>
+		<li>
+			Manda una lettera all'indirizzo:
+			<pre>
+Dart Fener
+Via delle tenebre 0
+111111 La-morte-nera-city
+La morte nera
+			</pre>
+		</li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>
