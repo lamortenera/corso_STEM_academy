@@ -60,7 +60,7 @@ def parse_row(row_csv):
     city = args[1]
     temperature = float(args[2])
     return {"datetime": dt, "city": city, "temperature": temperature}
-	
+    
 def write_data():
     dt = datetime.datetime.now()
     newline = "\n"
@@ -80,3 +80,20 @@ def read_data():
             data_row = parse_row(csv_row)
             data.append(data_row)
     return data
+
+def get_form_content(allowed_cities):
+    content = ""
+    pattern = "<input type='checkbox' name='filter_value' value='{}' {}>{}<br>"
+    for city in CITIES:
+        checked = ""
+        if not allowed_cities or city in allowed_cities:
+            checked = "checked"
+        content += pattern.format(city, checked, city)
+    return content
+
+def filter_data(data, allowed_cities):
+    new_data = []
+    for row in data:
+        if row["city"] in allowed_cities:
+            new_data.append(row)
+    return new_data

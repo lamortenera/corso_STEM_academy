@@ -18,6 +18,12 @@
 		</ol>
 	</div>
 	<div style="padding: 10px;">
+		<h3>Scegli le citta' da visualizzare</h3>
+		<form action="{{url_for('index')}}">
+			<input type="hidden" name="filter" value="on">
+			{{form_content}}
+			<input type="submit" value="Applica">
+		</form>
 		<h3>Grafico temperatura</h3>
 		<img width="600" 
 			src="{{url_for('static', filename='chart.png') + '?' + now_str}}">
