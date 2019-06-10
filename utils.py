@@ -4,19 +4,22 @@ Created on Sun Jun  2 09:26:20 2019
 
 @author: ale
 """
+import datetime
 import os
 import matplotlib
+import urllib.request
+import json
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from collections import defaultdict
 
-OWM_KEY = "incolla_qui_la_tua_chiave"
+OWM_KEY = "c4dd883dc03666b90ca628bf95e0bd58"
 DB_PATH = os.path.join(os.path.dirname(__file__), "database.csv")
 CHART_PATH = os.path.join(os.path.dirname(__file__), "static", "chart.png")
 CITIES = ["Padova", "Milano", "Roma", "Firenze", "Napoli"]
 
 def data_to_chart(data):
-	data = sorted(data, key=lambda row: row["datetime"])
+    data = sorted(data, key=lambda row: row["datetime"])
     lines = defaultdict(lambda : {"x": [], "y": []})
     for row in data:
         line = lines[row["city"]]
@@ -30,11 +33,50 @@ def data_to_chart(data):
     plt.legend()
     plt.gcf().autofmt_xdate()
     with open(CHART_PATH, 'w') as out_stream:
-		plt.savefig(out_stream, format="png")
+        plt.savefig(out_stream, format="png")
     plt.clf()
 
-def write_data():
-	print("Non implementato.")
+def get_temperature(city):
+    url_base = "https://api.openweathermap.org/data/2.5/weather"
+    url = url_base + "?appid={}&q={}".format(OWM_KEY, city)
+    response_bytes = urllib.request.urlopen(url).read()
+    d = json.loads(response_bytes.decode("utf8"))
+    return d["main"]["temp"] - 273.15
 
+def datetime_to_str(dt):
+    return "{}_{}_{}_{}_{}_{}".format(
+        dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+
+def str_to_datetime(dt_str):
+    return datetime.datetime(*[int(tok) for tok in dt_str.split('_')])
+
+def format_row(row_dict):
+    return "{},{},{}".format(
+        datetime_to_str(row_dict["datetime"]), row_dict["city"], row_dict["temperature"])
+
+def parse_row(row_csv):
+    args = row_csv.split(",")
+    dt = str_to_datetime(args[0])
+    city = args[1]
+    temperature = float(args[2])
+    return {"datetime": dt, "city": city, "temperature": temperature}
+	
+def write_data():
+    dt = datetime.datetime.now()
+    newline = "\n"
+    with open(DB_PATH, 'a') as out_stream:
+        for city in CITIES:
+            temperature = get_temperature(city)
+            data_row = {"datetime": dt, "city": city, "temperature": temperature}
+            csv_row = format_row(data_row)
+            out_stream.write(csv_row + newline)
+        
 def read_data():
-	print("Non implementato.")
+    data = []
+    newline = "\n"
+    with open(DB_PATH, 'r') as in_stream:
+        for line in in_stream:
+            csv_row = line.strip(newline)
+            data_row = parse_row(csv_row)
+            data.append(data_row)
+    return data
