@@ -18,6 +18,9 @@
 		</ol>
 	</div>
 	<div style="padding: 10px;">
+		<h3>Grafico temperatura</h3>
+		<img width="600" 
+			src="{{url_for('static', filename='chart.png') + '?' + now_str}}">
 		<h3>Rilevazioni temperatura</h3>
 		<div style="height: 400px; width: 600px; overflow: auto;">
 			<table>
