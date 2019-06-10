@@ -5,13 +5,13 @@ Created on Sun Jun  2 11:24:03 2019
 @author: ale
 """
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 @app.route("/")
 def index():
-    return "Pagina principale in costruzione"
+    return render_template("index.html")
 
 @app.route("/authors")
 def authors():
-    return "Pagina autori in costruzione"
+    return render_template("authors.html")
