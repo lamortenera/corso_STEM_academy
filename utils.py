@@ -16,7 +16,7 @@ CHART_PATH = os.path.join(os.path.dirname(__file__), "static", "chart.png")
 CITIES = ["Padova", "Milano", "Roma", "Firenze", "Napoli"]
 
 def data_to_chart(data):
-	data = sorted(data, key=lambda row: row["datetime"])
+    data = sorted(data, key=lambda row: row["datetime"])
     lines = defaultdict(lambda : {"x": [], "y": []})
     for row in data:
         line = lines[row["city"]]
@@ -30,11 +30,11 @@ def data_to_chart(data):
     plt.legend()
     plt.gcf().autofmt_xdate()
     with open(CHART_PATH, 'w') as out_stream:
-		plt.savefig(out_stream, format="png")
+        plt.savefig(out_stream, format="png")
     plt.clf()
 
 def write_data():
-	print("Non implementato.")
+    print("Non implementato.")
 
 def read_data():
-	print("Non implementato.")
+    print("Non implementato.")
