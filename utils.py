@@ -32,8 +32,7 @@ def data_to_chart(data):
     plt.title("temperatura per città")
     plt.legend()
     plt.gcf().autofmt_xdate()
-    with open(CHART_PATH, 'w') as out_stream:
-        plt.savefig(out_stream, format="png")
+    plt.savefig(CHART_PATH, format="png")
     plt.clf()
 
 def get_temperature(city):
