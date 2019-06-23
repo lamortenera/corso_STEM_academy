@@ -80,6 +80,13 @@ def read_data():
             data.append(data_row)
     return data
 
+def get_table_content(data):
+    content = ""
+    row_pattern = "<tr><td>{}</td><td>{}</td><td>{:.2f}</td></tr>"
+    for row in data:
+        content += row_pattern.format(row["datetime"], row["city"], row["temperature"])
+    return content
+
 def get_form_content(allowed_cities):
     content = ""
     pattern = "<input type='checkbox' name='filter_value' value='{}' {}>{}<br>"
