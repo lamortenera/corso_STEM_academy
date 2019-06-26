@@ -40,10 +40,8 @@
 <!-- carica la libreria poltly -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script  type="text/javascript" defer>
-var data = [
-    {x: [1,2,3,4], y: [1, 4, 9, 16], mode: "lines", name: "pasta"},
-    {x: [1,2,3,4], y: [1, 2, 3, 4], mode: "lines", name: "pizza"},];
-var layout = {title: "grafico interessantissimo"};
+var data = {{charts_json | safe}};
+var layout = {title: "temperatura"};
 Plotly.plot("chart", data, layout);
 </script>
 </body>

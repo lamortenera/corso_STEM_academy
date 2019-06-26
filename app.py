@@ -6,7 +6,7 @@ Created on Sun Jun  2 11:24:03 2019
 """
 
 import datetime
-from utils import read_data, data_to_chart, datetime_to_str, get_form_content, get_table_content, filter_data
+from utils import read_data, data_to_json, datetime_to_str, get_form_content, get_table_content, filter_data
 from flask import Flask, Markup, render_template, request
 
 app = Flask(__name__)
@@ -20,11 +20,13 @@ def index():
         data = filter_data(data, allowed_cities)
     table_content = get_table_content(data)
     form_content = get_form_content(allowed_cities)
-    data_to_chart(data)
+    charts_json = data_to_json(data)
     now_str = datetime_to_str(datetime.datetime.now())
     return render_template("index.html", 
         table_content=Markup(table_content), 
-        form_content=Markup(form_content), now_str=now_str)
+        form_content=Markup(form_content), 
+        charts_json=charts_json,
+        now_str=now_str)
 
 @app.route("/authors")
 def authors():

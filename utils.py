@@ -35,6 +35,20 @@ def data_to_chart(data):
     plt.savefig(CHART_PATH, format="png")
     plt.clf()
 
+def data_to_json(data):
+    data = sorted(data, key=lambda row: row["datetime"])
+    charts = {}
+    for row in data:
+        city = row["city"]
+        if city not in charts:
+            charts[city] = {"x": [], "y": [], "mode": "lines", "name": city}
+        chart = charts[city]
+        chart["x"].append(str(row["datetime"]))
+        chart["y"].append(row["temperature"])
+    chart_list = list(charts.values())
+    return json.dumps(chart_list)
+    
+    
 def get_temperature(city):
     url_base = "https://api.openweathermap.org/data/2.5/weather"
     url = url_base + "?appid={}&q={}".format(OWM_KEY, city)
