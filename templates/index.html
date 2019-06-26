@@ -25,8 +25,9 @@
 			<input type="submit" value="Applica">
 		</form>
 		<h3>Grafico temperatura</h3>
-		<img width="600" 
-			src="{{url_for('static', filename='chart.png') + '?' + now_str}}">
+		<div width="600" id="chart">
+    		<!-- questo container e' gestito dal codice javascript -->
+		</div>
 		<h3>Rilevazioni temperatura</h3>
 		<div style="height: 400px; width: 600px; overflow: auto;">
 			<table>
@@ -36,5 +37,14 @@
 		</div>
 	</div>
 </div>
+<!-- carica la libreria poltly -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script  type="text/javascript" defer>
+var data = [
+    {x: [1,2,3,4], y: [1, 4, 9, 16], mode: "lines", name: "pasta"},
+    {x: [1,2,3,4], y: [1, 2, 3, 4], mode: "lines", name: "pizza"},];
+var layout = {title: "grafico interessantissimo"};
+Plotly.plot("chart", data, layout);
+</script>
 </body>
 </html>
